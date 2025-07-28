@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 
 public class NaukriSalaryUpdater {
-
+///b2a781683fd04b1a93436767aced57b3
      @Test
      public void noticeUpdate(){
 
