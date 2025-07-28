@@ -8,10 +8,10 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class NaukriSalaryUpdater {
+public class NaukriSalaryUpdatertest {
 ///b2a781683fd04b1a93436767aced57b3
      @Test
-     public void noticeUpdate(){
+     public void noticeUpdateTest(){
 
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();

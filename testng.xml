@@ -3,7 +3,7 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="Pixis Automation Tests">
         <classes>
-            <class name="DemoCases.NaukriSalaryUpdater"/>
+            <class name="DemoCases.NaukriSalaryUpdatertest"/>
         </classes>
     </test>
 </suite>
