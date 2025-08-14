@@ -13,7 +13,7 @@ public class NaukriSalaryUpdatertest {
      @Test
      public void noticeUpdateTest(){
 
-        WebDriverManager.chromedriver().setup();
+       // WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         driver.manage().window().maximize();
