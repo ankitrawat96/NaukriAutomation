@@ -1,38 +1,52 @@
 package DemoCases;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import ConfigFiles.ConfigFile;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.*;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.Properties;
 
 public class NaukriSalaryUpdatertest {
 ///b2a781683fd04b1a93436767aced57b3
-     @Test
-     public void noticeUpdateTest(){
+ public static EncapuslationTest credential;
+ public static   Properties prop;
+    public static WebDriver driver;
+    public static WebDriverWait wait;
+    @Test
+     public void noticeUpdateTest() throws Exception {
 
-       // WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+         driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         driver.manage().window().maximize();
+         prop= ConfigFile.getProperties();
+         credential=new EncapuslationTest(prop.getProperty("username"),prop.getProperty("password"));
 
-        try {
+         try {
             // Step 1: Login to Naukri
-            driver.get("https://www.naukri.com/nlogin/login");
+            driver.get(prop.getProperty("loginUrl"));
 
-            Thread.sleep(5000);
-            driver.findElement(By.id("usernameField")).sendKeys("Ankittest1996@gmail.com");
-            driver.findElement(By.id("passwordField")).sendKeys("Ar24061996@");
-            driver.findElement(By.xpath("//button[text()='Login']")).click();
+            Thread.sleep(2000);
+            driver.findElement(By.id(prop.getProperty("Xpath_userName"))).sendKeys(credential.getUserName());
+            driver.findElement(By.id(prop.getProperty("Xpath_password"))).sendKeys(credential.getPassword());
+            driver.findElement(By.xpath(prop.getProperty("Xpath_submitButton"))).click();
 
             // Step 2: Navigate to profile page
-            Thread.sleep(5000);
-            driver.get("https://www.naukri.com/mnjuser/profile");
+
+            try {
+                WebElement clickOnProfileButton= wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("clickOnProfileButton"))));
+                clickOnProfileButton.click();
+            } catch (Exception e) {
+                driver.get(prop.getProperty("profileURL"));
+            }
+
 
             // Step 3: Click the Edit button
-            WebElement editIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//em[contains(@class,'icon edit')]")));
+
+            WebElement editIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("editIcon"))));
             editIcon.click();
 
             // Step 4: Select “1 Month” (30 Days) availability
@@ -43,17 +57,14 @@ public class NaukriSalaryUpdatertest {
             Thread.sleep(5000);
 
             // Step 6: Reopen the Edit section
-            editIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//em[contains(@class,'icon edit')]")));
-
+            editIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("editIcon"))));
             editIcon.click();
 
             // Step 7: Select “15 Days or less”
-            Thread.sleep(3000);
             selectAvailabilityChip(driver, wait,"15 Days or less");
 
             // Step 8: Save again
             clickSave(driver, wait);
-            Thread.sleep(5000);
 
             System.out.println("Availability updated to '1 Month' and then back to '15 Days or less'.");
 
