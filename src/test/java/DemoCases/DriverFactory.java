@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
 
 public class DriverFactory {
@@ -18,6 +20,12 @@ public class DriverFactory {
             options.addArguments("--disable-gpu");
             options.addArguments("--window-size=1920,1080");
 
+            try {
+                Path tempProfile = Files.createTempDirectory("chrome-profile");
+                options.addArguments("--user-data-dir=" + tempProfile.toAbsolutePath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             driver = new ChromeDriver(options);
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
