@@ -84,7 +84,9 @@ public class NaukriSalaryUpdatertest {
     }
     @AfterMethod
     public void tearDown() {
-        DriverFactory.quitDriver();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     // Method to select chip by visible text (like "1 Month", "2 Months", etc.)
