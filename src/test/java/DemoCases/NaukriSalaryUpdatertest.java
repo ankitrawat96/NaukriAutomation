@@ -4,8 +4,9 @@ import ConfigFiles.ConfigFile;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import java.time.Duration;
 import java.util.Properties;
 
@@ -15,17 +16,21 @@ public class NaukriSalaryUpdatertest {
  public static   Properties prop;
     public static WebDriver driver;
     public static WebDriverWait wait;
+    @BeforeMethod
+    public void setUp() {
+        driver = DriverFactory.createDriver();
+        driver.manage().window().maximize();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+    }
     @Test
      public void noticeUpdateTest() throws Exception {
 
-
-         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        driver.manage().window().maximize();
+        // driver = new ChromeDriver();
          prop= ConfigFile.getProperties();
          credential=new EncapuslationTest(prop.getProperty("username"),prop.getProperty("password"));
 
-         try {
+        try {
             // Step 1: Login to Naukri
             driver.get(prop.getProperty("loginUrl"));
 
@@ -37,7 +42,7 @@ public class NaukriSalaryUpdatertest {
             // Step 2: Navigate to profile page
 
             try {
-                WebElement clickOnProfileButton= wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("clickOnProfileButton"))));
+                WebElement clickOnProfileButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("clickOnProfileButton"))));
                 clickOnProfileButton.click();
             } catch (Exception e) {
                 driver.get(prop.getProperty("profileURL"));
@@ -53,7 +58,7 @@ public class NaukriSalaryUpdatertest {
             selectAvailabilityChipByText(driver, wait, "1 Month");
 
             // Step 5: Save
-              clickSave(driver, wait);
+            clickSave(driver, wait);
             Thread.sleep(5000);
 
             // Step 6: Reopen the Edit section
@@ -61,18 +66,25 @@ public class NaukriSalaryUpdatertest {
             editIcon.click();
 
             // Step 7: Select “15 Days or less”
-            selectAvailabilityChip(driver, wait,"15 Days or less");
+            selectAvailabilityChip(driver, wait, "15 Days or less");
 
             // Step 8: Save again
             clickSave(driver, wait);
 
             System.out.println("Availability updated to '1 Month' and then back to '15 Days or less'.");
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            //} //catch (Exception e) {
+            // e.printStackTrace();
+            //} finally {
+            //  driver.quit();
+            // }
         } finally {
-            driver.quit();
+
         }
+    }
+    @AfterMethod
+    public void tearDown() {
+        DriverFactory.quitDriver();
     }
 
     // Method to select chip by visible text (like "1 Month", "2 Months", etc.)

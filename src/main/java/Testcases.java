@@ -1,13 +1,19 @@
 
 public class Testcases {
     public static void main(String[] args) {
-    String str="aeiousdfg ";
-    findVowels(str);
+    //String str="aeiousdfg ";
+    //findVowels(str);
 
 
 
+        Testcases obj = new Testcases();
+        System.out.println(obj.fun());
+        }
+        int fun() {
+            return 20;
+        }
 
-    }
+
 
     public static void findVowels(String str){
         StringBuffer result=new StringBuffer();
