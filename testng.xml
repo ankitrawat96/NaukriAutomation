@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="RegressionSuite" parallel="none" thread-count="1">
+    <parameter name="env" value="QA&amp;Profile" />
+    <test name="RegressionTests">
+        <classes>
+            <class name="demo.tests.LoginFlowTest"/>
+        </classes>
+    </test>
+</suite>

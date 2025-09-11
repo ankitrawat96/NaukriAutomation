@@ -1,0 +1,15 @@
+app:
+  baseUrl: "https://www.naukri.com"
+  loginPath: "/nlogin/login"
+  headless: false
+  implicitWaitSec: 10
+  explicitWaitSec: 20
+  windowMaximize: true
+  browser: "chrome"
+  filePath: "/Users/ankitrawat/Downloads/AnkitResume_SDET.pdf"
+  DocFilePath: "/Users/ankitrawat/Downloads/AnkitResume_SDET.docx"
+  # You can set BROWSER env var in CI to override (chrome|edge|firefox).
+
+credentials:
+  username: "Ankittest1996@gmail.com"
+  password: "Ar24061996@"
