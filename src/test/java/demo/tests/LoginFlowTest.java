@@ -36,7 +36,7 @@ public class LoginFlowTest extends BaseTest {
         System.out.println("clicked edit button");
         profile.chooseAvailability("1 Month");
         profile.clickSave();
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         profile.clickEdit();
         profile.selectAvailabilityChip("15 Days or less");
         profile.chooseAvailability("15 Days or less");
@@ -47,8 +47,8 @@ public class LoginFlowTest extends BaseTest {
 
     }
 
-    @Test(priority = 1)
-    public void UploadResume() throws InterruptedException {
+    @Test
+    public void uploadResume() throws InterruptedException {
 
         Config cfg = this.cfg;
 
